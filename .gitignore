@@ -1,0 +1,5 @@
+# sensitive files
+**/*.ini
+
+# logs
+**/*.log
