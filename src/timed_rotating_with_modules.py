@@ -5,11 +5,12 @@ log_dir = os.path.join(now_dir, "../log")
 lib_dir = os.path.join(now_dir, "../lib")
 sys.path.append(lib_dir)
 
-from file_handler import set_handler_timed_rotating
+from logging_module import *
 import logging
 
-# set handler
-tr_handler = set_handler_timed_rotating(log_dir = log_dir)
+# set logging handler
+setup_logging()
+handler = timed_rotating_handler(log_dir = log_dir)
 
 # record time
 start_time = time()
@@ -20,4 +21,4 @@ end_time = time()
 logging.info(f"Time Spent(second): {end_time - start_time}")
 
 # remove file handler
-logging.getLogger().removeHandler(tr_handler)
+logging.getLogger().removeHandler(handler)
