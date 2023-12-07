@@ -1,7 +1,6 @@
 
 def log_resource_usage(logger):
     import psutil
-    import time
     
     try:
         cpu_percent = psutil.cpu_percent(interval=1) # Consider MacOS (ARM)
@@ -11,9 +10,31 @@ def log_resource_usage(logger):
 
     except Exception as e:
         logger.error(f"Error while logging resource usage: {e}", exc_info=True)
+        
 
+def log_and_alert_cpu(logger, boundary:tuple):
+    import psutil
+    
+    try:
+        boundary_warning = boundary[0]
+        boundary_error = boundary[1]
+        
+        cpu_percent = psutil.cpu_percent(interval=1) # Consider MacOS (ARM)
+        
+        if cpu_percent < boundary_warning:
+            logger.info(f"CPU_Usage: {cpu_percent}% - STABLE")
+        
+        elif boundary_warning <= cpu_percent < boundary_error:
+            logger.warning(f"CPU_Usage: {cpu_percent}% - SYSTEM IS IN DANGER, ACTION REQUIRED")
+        
+        elif cpu_percent >= boundary_error:
+            logger.error(f"CPU_Usage: {cpu_percent}% - IMMEDIATE ACTION REQUIRED!!")
+            
+    except:
+        print("boundary param is wrong")
+        
 
-
+# TEST
 if __name__ == "__main__":
     import os, sys
     
@@ -23,4 +44,4 @@ if __name__ == "__main__":
     import logging
     
     test_logger = setup_logger(name="test", level=logging.INFO, log_dir="/Users/kimdohoon/git/study/log-factory/log")
-    log_resource_usage(test_logger)
+    log_and_alert_cpu(test_logger, (70, 90))
