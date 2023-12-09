@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
 from routers import demo as demo_router
-from middlewares.demo import DemoMiddleware
+from middlewares.log_for_all import DemoMiddleware
 
 app = FastAPI()
 
