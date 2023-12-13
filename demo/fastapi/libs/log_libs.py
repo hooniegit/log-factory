@@ -48,6 +48,7 @@ def setup_logger(name:str, level=None, log_dir=None):
 def remove_logger(logger):
     try:
         for handler in logger.handlers[:]:
+            handler.close()
             logger.removeHandler(handler)
         for filter_ in logger.filters[:]:
             logger.removeFilter(filter_)
