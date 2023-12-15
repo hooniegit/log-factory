@@ -3,7 +3,7 @@ from time import time, sleep
 from datetime import datetime
 
 bootstrap_servers = 'localhost'
-topic = 'test'
+topic = 'hoonie'
 
 conf = {'bootstrap.servers': bootstrap_servers,
         'group.id': 'demo.hoonie',
