@@ -9,7 +9,7 @@ def delivery_report(err, msg):
         print('Message Delivered - {} [{}]'.format(msg.topic(), msg.partition()))
 
 bootstrap_servers = 'localhost:9092'
-topic = 'test'
+topic = 'hoonie'
 conf = {'bootstrap.servers': bootstrap_servers}
 producer = Producer(conf)
 
