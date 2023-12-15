@@ -13,12 +13,16 @@ topic = 'created'
 conf = {'bootstrap.servers': bootstrap_servers}
 producer = Producer(conf)
 
-for i in range(1, 11):
+for i in range(0, 10):
     start_time = time()
     
     nowdate = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
     message = f"DOHOON - nowdate is.. {nowdate}"
-    producer.produce(topic, key=str(i), value=message, callback=delivery_report) # Produce Message
+    producer.produce(topic, 
+                     key=str(i),
+                     partition=i,
+                     value=message, 
+                     callback=delivery_report) # Produce Message
     producer.flush() # Send Produced Messages to Broker
     end_time = time()
     
